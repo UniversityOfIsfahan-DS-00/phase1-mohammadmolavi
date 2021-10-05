@@ -21,7 +21,6 @@ private:
     bool isOriginalTitle;
 
 public:
-    //detailes(string = "", int = 0, string = "", string = "", string = "", string = "", string = "", bool = false);
     void set_titleId(string tId) { titleId = tId; };
     string get_titleId() { return titleId; };
     void set_ordering(string order) { ordering = stoi(order); };
@@ -160,6 +159,7 @@ L1:
 }
 
 void saveInfo(int);
+void printTopRated(int);
 
 int main()
 {
@@ -216,15 +216,48 @@ int main()
     do_rate(count);
     inputFile1.close();
     saveInfo(count);
+    cout << "Top 10 :\n";
+    printTopRated(count);
 }
 
 void saveInfo(int c)
 {
-    ofstream outputFile("title.rating.dat", ios::out);
+    ofstream outputFile("title.rating.txt", ios::out);
     outputFile << "tconst	averageRating	numVotes\n";
     for (int i = 0; i < c; i++)
     {
         outputFile << numToId[i] << '\t' << (ratelist.data() + i)->get_rating()
                    << '\t' << (ratelist.data() + i)->get_count() << endl;
     }
+}
+
+void printTopRated(int n)
+{
+    int top[10];
+    int i = 0, count = 0;
+    float copyList[n];
+    while ((ratelist.data() + i)->get_rating() < 10 && (ratelist.data() + i)->get_rating() > 0)
+    {
+        copyList [i] = (ratelist.data() + i)->get_rating();
+        i++;
+    }
+    int max = 0;
+    i = 0;
+    while (count < 10)
+    {
+        while (i < n)
+        {
+            if (copyList[max] <= copyList[i])              
+                max = i;
+            i++;
+        }
+        top[count] = max;
+        copyList[max] = -1;
+        i = 0;
+        max = 0;
+        count++;
+    }
+    for(i = 0 ; i < 10 ; i++)
+        cout << i + 1 << " : " <<numToTitle[top[i]] << " : " 
+            << (ratelist.data() + top[i])->get_rating() << endl;
 }
