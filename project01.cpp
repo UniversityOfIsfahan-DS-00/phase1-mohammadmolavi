@@ -5,7 +5,6 @@
 #include <fstream>
 #include <vector>
 #include <map>
-#include <iomanip>
 using namespace std;
 
 class detailes
