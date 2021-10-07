@@ -127,7 +127,7 @@ L1:
         bool is_rated = false;
         cout << "<<for rate to every movie type its number>>\n";
         for (int i = 0; i < c; i++)
-            cout << i << ": " << numToTitle[i] << endl;
+            cout << i + 1<< ": " << numToTitle[i] << endl;
         cin >> num;
         if (num == -1)
             break;
@@ -137,6 +137,7 @@ L1:
             {
                 cout << "\n\nyou already rate this movie!\n\n\n";
                 is_rated = true;
+                break;
             }
         }
         if (is_rated == false)
@@ -222,7 +223,7 @@ int main()
 
 void saveInfo(int c)
 {
-    ofstream outputFile("title.rating.txt", ios::out);
+    ofstream outputFile("title.ratings.txt", ios::out);
     outputFile << "tconst	averageRating	numVotes\n";
     for (int i = 0; i < c; i++)
     {
